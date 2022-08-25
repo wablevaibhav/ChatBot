@@ -3,20 +3,17 @@ package in.icomputercoding.chatbot;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import in.icomputercoding.chatbot.Model.Chats;
 import in.icomputercoding.chatbot.Model.Message;
+import in.icomputercoding.chatbot.databinding.ActivityMainBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,34 +22,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView RVChats;
-    EditText EdtMsg;
-    FloatingActionButton Send;
+    ActivityMainBinding binding;
+
+
     private ArrayList<Chats> chats;
     ChatRVAdapter chatRVAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        RVChats = findViewById(R.id.RVChats);
-        EdtMsg = findViewById(R.id.EdtMsg);
-        Send = findViewById(R.id.Send);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         chats = new ArrayList<>();
         chatRVAdapter = new ChatRVAdapter(chats);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        RVChats.setLayoutManager(layoutManager);
-        RVChats.setAdapter(chatRVAdapter);
+        binding.RVChats.setLayoutManager(new LinearLayoutManager(this));
+        binding.RVChats.setAdapter(chatRVAdapter);
 
-        Send.setOnClickListener(v -> {
-            if (EdtMsg.getText().toString().isEmpty()) {
+        binding.Send.setOnClickListener(v -> {
+            if (binding.EdtMsg.getText().toString().isEmpty()) {
                 Toast.makeText(MainActivity.this, "Please enter your message.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            getResponse(EdtMsg.getText().toString());
-            EdtMsg.setText("");
+            getResponse(binding.EdtMsg.getText().toString());
+            binding.EdtMsg.setText("");
         });
 
 

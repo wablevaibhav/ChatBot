@@ -2,8 +2,7 @@ package in.icomputercoding.chatbot;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.ViewGroup;;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.icomputercoding.chatbot.Model.Chats;
+import in.icomputercoding.chatbot.databinding.BotMsgRvItemBinding;
+import in.icomputercoding.chatbot.databinding.UserMsgRvItemBinding;
 
 public class ChatRVAdapter extends RecyclerView.Adapter {
 
@@ -25,16 +26,12 @@ public class ChatRVAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        switch (viewType) {
-
-            case 0:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_msg_rv_item, parent, false);
-                return new UserViewHolder(view);
-
-            case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bot_msg_rv_item, parent, false);
-                return new BotViewHolder(view);
-
+        if (viewType == 0) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_msg_rv_item, parent, false);
+            return new UserViewHolder(view);
+        } else if (viewType == 1) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bot_msg_rv_item, parent, false);
+            return new BotViewHolder(view);
         }
 
         return null;
@@ -47,10 +44,10 @@ public class ChatRVAdapter extends RecyclerView.Adapter {
         switch (chats.getSender()) {
 
             case "user":
-                ((UserViewHolder) holder).userTv.setText(chats.getMessage());
+                ((UserViewHolder) holder).binding.TvUser.setText(chats.getMessage());
                 break;
             case "bot":
-                ((BotViewHolder) holder).botTv.setText(chats.getMessage());
+                ((BotViewHolder) holder).binding.TvBot.setText(chats.getMessage());
                 break;
 
         }
@@ -76,20 +73,20 @@ public class ChatRVAdapter extends RecyclerView.Adapter {
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView userTv;
+        UserMsgRvItemBinding binding;
 
         public UserViewHolder(@NonNull View view) {
             super(view);
-            userTv = view.findViewById(R.id.TvUser);
+            binding = UserMsgRvItemBinding.bind(view);
         }
     }
 
     public static class BotViewHolder extends RecyclerView.ViewHolder {
-        TextView botTv;
+        BotMsgRvItemBinding binding;
 
         public BotViewHolder(@NonNull View view) {
             super(view);
-            botTv = view.findViewById(R.id.TvBot);
+            binding = BotMsgRvItemBinding.bind(view);
         }
     }
 

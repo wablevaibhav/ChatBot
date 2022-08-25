@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_color"
+    android:background="@color/colorWhite"
     tools:context=".MainActivity">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RVChats"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/RVMsg" />
@@ -17,6 +19,7 @@
         android:id="@+id/RVMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:layout_alignParentBottom="true">
 
         <EditText
@@ -26,10 +29,12 @@
             android:layout_margin="3dp"
             android:layout_toStartOf="@id/Send"
             android:fontFamily="@font/poppins"
-            android:hint="Enter Message"
+            android:hint="@string/enter_message"
+            android:inputType="text"
+            android:autofillHints="Hey there!!"
             android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColor="@color/colorTextBlack"
+            android:textColorHint="@color/hintTextColor" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/fab_color"
             android:src="@drawable/ic_send"
-            android:tint="@color/white"
-            app:fabCustomSize="45dp" />
+            app:backgroundTint="@color/LightGray"
+            app:fabCustomSize="45dp"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 
     </RelativeLayout>
